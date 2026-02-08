@@ -36,9 +36,19 @@ if [ -d "$DOTFILES_DIR/superfile" ]; then
   link_config "$DOTFILES_DIR/superfile/config.toml" "$HOME/.config/superfile/config.toml"
 fi
 
-# Zsh (if .zshrc exists)
+# Zsh
 if [ -f "$DOTFILES_DIR/zsh/.zshrc" ]; then
   link_config "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
+fi
+
+# Starship
+if [ -f "$DOTFILES_DIR/starship/starship.toml" ]; then
+  link_config "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
+fi
+
+# Lazygit
+if [ -f "$DOTFILES_DIR/lazygit/config.yml" ]; then
+  link_config "$DOTFILES_DIR/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
 fi
 
 echo "✨ Setup complete!"
