@@ -1,0 +1,21 @@
+# Warp settings
+
+# Keybindings
+[[keybindings]]
+# Send Cmd+B to terminal (for nvim neo-tree)
+keys = "cmd+b"
+action = "send_text"
+value = "\u001B[24;3u"  # Escape sequence for Cmd+B
+
+# Theme
+theme = "Dracula"
+
+# Font
+font_family = "JetBrains Mono"
+font_size = 12
+
+# Appearance
+nerd_font_variant = "true"
+
+# Shell integration
+shell_integration = true

@@ -1,0 +1,46 @@
+# Superfile Configuration
+
+[theme]
+# Available themes: default, dracula, nord, gruvbox, solarized, tokyonight
+name = "dracula"
+
+[editor]
+# Default editor
+cmd = "nvim"
+
+[icons]
+# Show icons
+enabled = true
+
+[ui]
+# Show hidden files by default
+show_hidden = false
+
+# Show file size
+show_size = true
+
+# Show last modified date
+show_modified = true
+
+# Max items to show in preview
+max_preview_items = 20
+
+[keybindings]
+# Navigation
+"j" = "down"
+"k" = "up"
+"h" = "left"
+"l" = "right"
+"g" = "top"
+"G" = "bottom"
+
+# Actions
+"Enter" = "open"
+"d" = "delete"
+"c" = "copy"
+"x" = "cut"
+"v" = "paste"
+"r" = "rename"
+"u" = "undo"
+"q" = "quit"
+"?" = "help"
