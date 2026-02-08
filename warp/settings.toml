@@ -1,21 +1,38 @@
 # Warp settings
 
-# Keybindings
-[[keybindings]]
-# Send Cmd+B to terminal (for nvim neo-tree)
-keys = "cmd+b"
-action = "send_text"
-value = "\u001B[24;3u"  # Escape sequence for Cmd+B
-
 # Theme
-theme = "Dracula"
+theme = "Catppuccin Mocha"
 
 # Font
 font_family = "JetBrains Mono"
-font_size = 12
+font_size = 14
+font_ligatures = true
 
 # Appearance
-nerd_font_variant = "true"
+nerd_font_variant = true
+cursor_shape = "block"
+cursor_blink = true
 
 # Shell integration
 shell_integration = true
+
+# Window
+window_padding_x = 12
+window_padding_y = 12
+
+# Keybindings
+[[keybindings]]
+keys = "cmd+shift+d"
+action = "new_split_right"
+
+[[keybindings]]
+keys = "cmd+shift+e"
+action = "new_split_down"
+
+[[keybindings]]
+keys = "cmd+w"
+action = "close_pane"
+
+[[keybindings]]
+keys = "cmd+k"
+action = "clear_screen"

@@ -14,7 +14,6 @@ return {
         "nofile",
         "quickfix",
         "prompt",
-        "neo-tree",
       },
     },
   },

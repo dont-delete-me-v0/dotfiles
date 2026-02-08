@@ -49,6 +49,13 @@ return {
       })
 
       opts.presets.lsp_doc_border = true
+
+      -- Disable signature help on Ctrl+K
+      opts.lsp = vim.tbl_deep_extend("force", opts.lsp or {}, {
+        signature = {
+          enabled = false,
+        },
+      })
     end,
   },
 }
