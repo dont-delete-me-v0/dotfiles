@@ -32,6 +32,7 @@ return {
         "prettier",
         "eslint_d",
         -- HTML/CSS
+        "emmet-language-server",
         "html-lsp",
         "css-lsp",
         "tailwindcss-language-server",
@@ -50,6 +51,15 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        -- Emmet (HTML completions in JSX/TSX)
+        emmet_language_server = {
+          filetypes = {
+            "html",
+            "css",
+            "javascriptreact",
+            "typescriptreact",
+          },
+        },
         -- HTML
         html = {},
         -- CSS
