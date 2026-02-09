@@ -52,7 +52,27 @@ return {
         },
       },
       explorer = { enabled = true },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        win = {
+          input = {
+            keys = {
+              ["<a-d>"] = false, -- disable inspect, conflicts with window nav
+              ["<a-w>"] = false, -- disable cycle_win, conflicts with window nav
+              ["<a-a>"] = false, -- conflicts with window nav
+              ["<a-s>"] = false, -- conflicts with window nav
+            },
+          },
+          list = {
+            keys = {
+              ["<a-d>"] = false,
+              ["<a-w>"] = false,
+              ["<a-a>"] = false,
+              ["<a-s>"] = false,
+            },
+          },
+        },
+      },
       notifier = { enabled = true, timeout = 3000 },
       indent = { enabled = true },
       scope = { enabled = true },
