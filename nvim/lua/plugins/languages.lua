@@ -10,7 +10,6 @@ return {
         "jsx",
         "html",
         "css",
-        "tailwindcss",
         "go",
         "json",
         "yaml",

@@ -12,9 +12,9 @@ vim.keymap.set("n", "<M-d>", "<C-w>l", { noremap = true, desc = "Go to window ri
 vim.keymap.set("n", "<S-j>", "10j", { noremap = true, desc = "Jump 10 lines down" })
 vim.keymap.set("n", "<S-k>", "10k", { noremap = true, desc = "Jump 10 lines up" })
 
--- Jump to start/end of line with Alt+H/L
-vim.keymap.set({ "n", "v" }, "<M-h>", "^", { noremap = true, desc = "Jump to line start" })
-vim.keymap.set({ "n", "v" }, "<M-l>", "$", { noremap = true, desc = "Jump to line end" })
+-- Jump to start/end of line with H/L (Alt+H/L used by AeroSpace)
+vim.keymap.set({ "n", "v" }, "H", "^", { noremap = true, desc = "Jump to line start" })
+vim.keymap.set({ "n", "v" }, "L", "$", { noremap = true, desc = "Jump to line end" })
 
 -- Deletions go to black hole register (don't overwrite clipboard)
 vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true, desc = "Delete without yank" })
@@ -28,3 +28,12 @@ vim.keymap.set("i", "<C-h>", "<Left>", { noremap = true, desc = "Move left" })
 vim.keymap.set("i", "<C-j>", "<Down>", { noremap = true, desc = "Move down" })
 vim.keymap.set("i", "<C-k>", "<Up>", { noremap = true, desc = "Move up", remap = true })
 vim.keymap.set("i", "<C-l>", "<Right>", { noremap = true, desc = "Move right" })
+
+-- Fix Shift+K in markdown files (override man page lookup)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "md" },
+  callback = function()
+    vim.keymap.set("n", "<S-k>", "10k", { buffer = true, noremap = true, desc = "Jump 10 lines up" })
+    vim.keymap.set("n", "K", "10k", { buffer = true, noremap = true, desc = "Jump 10 lines up" })
+  end,
+})
