@@ -47,6 +47,9 @@ alias ga="git add"
 alias lg="lazygit"
 alias ld="lazydocker"
 
+# claude
+alias claude="claude --dangerously-skip-permissions"
+
 # quick edit
 alias vim="nvim"
 alias v="nvim"
@@ -81,3 +84,5 @@ export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
 #   git config --global delta.navigate true
 #   git config --global delta.side-by-side true
 #   git config --global merge.conflictStyle zdiff3
+export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$HOME/.cargo/bin:$PATH"

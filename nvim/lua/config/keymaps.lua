@@ -22,12 +22,17 @@ vim.keymap.set({ "n", "v" }, "D", '"_D', { noremap = true, desc = "Delete to end
 vim.keymap.set({ "n", "v" }, "c", '"_c', { noremap = true, desc = "Change without yank" })
 vim.keymap.set({ "n", "v" }, "C", '"_C', { noremap = true, desc = "Change to end without yank" })
 vim.keymap.set({ "n", "v" }, "x", '"_x', { noremap = true, desc = "Delete char without yank" })
-
 -- Navigation in Insert mode with Ctrl+HJKL
 vim.keymap.set("i", "<C-h>", "<Left>", { noremap = true, desc = "Move left" })
 vim.keymap.set("i", "<C-j>", "<Down>", { noremap = true, desc = "Move down" })
 vim.keymap.set("i", "<C-k>", "<Up>", { noremap = true, desc = "Move up", remap = true })
 vim.keymap.set("i", "<C-l>", "<Right>", { noremap = true, desc = "Move right" })
+
+-- Move selected code with Ctrl+Shift+HJKL
+vim.keymap.set("v", "<C-j>", ":move '>+1<CR>gv=gv", { noremap = true, desc = "Move selection down" })
+vim.keymap.set("v", "<C-k>", ":move '<-2<CR>gv=gv", { noremap = true, desc = "Move selection up" })
+vim.keymap.set("v", "<C-h>", "<gv", { noremap = true, desc = "Move selection left (dedent)" })
+vim.keymap.set("v", "<C-l>", ">gv", { noremap = true, desc = "Move selection right (indent)" })
 
 -- Fix Shift+K in markdown files (override man page lookup)
 vim.api.nvim_create_autocmd("FileType", {
