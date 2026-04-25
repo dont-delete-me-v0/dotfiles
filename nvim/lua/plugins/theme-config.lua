@@ -1,24 +1,14 @@
 return {
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      flavour = "latte", -- latte, frappe, macchiato, mocha
-      transparent_background = true,
-      integrations = {
-        snacks = true,
+  "navarasu/onedark.nvim",
+  priority = 1000, -- make sure to load this before all the other start plugins
+  config = function()
+    require("onedark").setup({
+      style = "deep",
+      transparent = true,
+      lualine = {
+        transparent = true,
       },
-    },
-    config = function(_, opts)
-      require("catppuccin").setup(opts)
-      vim.cmd.colorscheme("catppuccin")
-
-      -- Дополнительная прозрачность для explorer
-      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "NONE" })
-    end,
-  },
+    })
+    require("onedark").load()
+  end,
 }

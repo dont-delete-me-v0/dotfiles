@@ -1,4 +1,26 @@
 return {
+  -- Run golangci-lint from module root so import resolution works
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = function(_, opts)
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+        pattern = "*.go",
+        callback = function(args)
+          local lint = require("lint")
+          if not lint.linters.golangcilint then
+            return
+          end
+          local root = vim.fs.root(args.buf, { "go.work", "go.mod" })
+          if root then
+            lint.linters.golangcilint.cwd = root
+          end
+        end,
+      })
+      return opts
+    end,
+  },
+
   -- Treesitter configuration
   {
     "nvim-treesitter/nvim-treesitter",
@@ -7,16 +29,23 @@ return {
         "javascript",
         "typescript",
         "tsx",
-        "jsx",
         "html",
         "css",
         "go",
+        "gomod",
+        "gosum",
+        "gowork",
+        "gotmpl",
         "json",
+        "jsonc",
         "yaml",
         "lua",
         "bash",
         "markdown",
         "markdown_inline",
+        "regex",
+        "vim",
+        "vimdoc",
       },
     },
   },
@@ -25,6 +54,8 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
+      pip = { install_args = {} },
+      npm = { install_args = {} },
       ensure_installed = {
         -- TypeScript/JavaScript
         "typescript-language-server",
@@ -37,7 +68,10 @@ return {
         "tailwindcss-language-server",
         -- Go
         "gopls",
+        "goimports",
+        "gofumpt",
         "golangci-lint",
+        "delve",
         -- Formatting
         "stylua",
         "shfmt",
@@ -80,8 +114,8 @@ return {
             "css",
             "javascript",
             "typescript",
-            "jsx",
-            "tsx",
+            "javascriptreact",
+            "typescriptreact",
           },
         },
         -- Go
@@ -91,6 +125,37 @@ return {
               usePlaceholders = true,
               completeUnimported = true,
               staticcheck = true,
+              gofumpt = true,
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                unusedparams = true,
+                unusedvariable = true,
+                unusedwrite = true,
+                useany = true,
+                shadow = true,
+                fieldalignment = false,
+                nilness = true,
+              },
+              codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              semanticTokens = true,
+              directoryFilters = { "-.git", "-.vscode", "-.idea", "-node_modules" },
             },
           },
         },
@@ -105,12 +170,13 @@ return {
       formatters_by_ft = {
         javascript = { "prettier" },
         typescript = { "prettier" },
-        jsx = { "prettier" },
-        tsx = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
         html = { "prettier" },
         css = { "prettier" },
         json = { "prettier" },
-        go = { "gofmt", "goimports" },
+        jsonc = { "prettier" },
+        go = { "goimports", "gofumpt" },
         lua = { "stylua" },
         sh = { "shfmt" },
       },
