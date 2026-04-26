@@ -34,6 +34,11 @@ vim.keymap.set("v", "<C-k>", ":move '<-2<CR>gv=gv", { noremap = true, desc = "Mo
 vim.keymap.set("v", "<C-h>", "<gv", { noremap = true, desc = "Move selection left (dedent)" })
 vim.keymap.set("v", "<C-l>", ">gv", { noremap = true, desc = "Move selection right (indent)" })
 
+-- Kanagawa theme variants
+vim.keymap.set("n", "<leader>uk1", "<cmd>colorscheme kanagawa-wave<cr>", { desc = "Kanagawa Wave" })
+vim.keymap.set("n", "<leader>uk2", "<cmd>colorscheme kanagawa-dragon<cr>", { desc = "Kanagawa Dragon" })
+vim.keymap.set("n", "<leader>uk3", "<cmd>colorscheme kanagawa-lotus<cr>", { desc = "Kanagawa Lotus" })
+
 -- Fix Shift+K in markdown files (override man page lookup)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "md" },

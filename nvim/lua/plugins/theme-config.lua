@@ -1,14 +1,37 @@
 return {
-  "navarasu/onedark.nvim",
-  priority = 1000, -- make sure to load this before all the other start plugins
-  config = function()
-    require("onedark").setup({
-      style = "deep",
-      transparent = true,
-      lualine = {
-        transparent = true,
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      theme = "wave",
+      background = {
+        dark = "wave",
+        light = "lotus",
       },
-    })
-    require("onedark").load()
-  end,
+      transparent = true,
+      dimInactive = false,
+      terminalColors = true,
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      require("kanagawa").setup(opts)
+      vim.cmd.colorscheme("kanagawa-wave")
+    end,
+  },
+  -- LazyVim theme switcher integration
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "kanagawa-wave",
+    },
+  },
 }
