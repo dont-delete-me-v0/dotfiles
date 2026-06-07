@@ -1,5 +1,6 @@
 # Taps
 tap "nikitabobko/tap"
+tap "FelixKratz/formulae"
 
 # Formulae
 brew "neovim"
@@ -18,6 +19,7 @@ brew "go"
 brew "superfile"
 brew "shfmt"
 brew "stylua"
+brew "borders"
 
 # Casks
 cask "warp"

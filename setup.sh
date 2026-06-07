@@ -117,6 +117,16 @@ if [ -f "$DOTFILES_DIR/aerospace/.aerospace.toml" ]; then
   link_config "$DOTFILES_DIR/aerospace/.aerospace.toml" "$HOME/.aerospace.toml"
 fi
 
+# Ghostty
+if [ -f "$DOTFILES_DIR/ghostty/config" ]; then
+  link_config "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config"
+fi
+
+# tmux
+if [ -f "$DOTFILES_DIR/tmux/.tmux.conf" ]; then
+  link_config "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+fi
+
 # ─── 6. Git delta ─────────────────────────────────────────────
 
 info "Checking git-delta config..."
