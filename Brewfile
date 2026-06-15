@@ -1,6 +1,5 @@
 # Taps
 tap "nikitabobko/tap"
-tap "FelixKratz/formulae"
 
 # Formulae
 brew "neovim"
@@ -19,9 +18,10 @@ brew "go"
 brew "superfile"
 brew "shfmt"
 brew "stylua"
-brew "borders"
+brew "tmux"
 
 # Casks
+cask "ghostty"
 cask "warp"
 cask "nikitabobko/tap/aerospace"
 cask "font-jetbrains-mono-nerd-font"

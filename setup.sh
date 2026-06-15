@@ -2,7 +2,7 @@
 
 set -e
 
-DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Colors
 GREEN='\033[0;32m'
@@ -23,6 +23,14 @@ else
   info "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   ok "Homebrew installed"
+fi
+
+if ! command -v brew &>/dev/null; then
+  if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
 fi
 
 # ─── 2. Brew bundle ───────────────────────────────────────────
@@ -71,7 +79,13 @@ link_config() {
   local dst="$2"
 
   if [ -e "$dst" ] && [ ! -L "$dst" ]; then
-    skip "$dst already exists (not a symlink)"
+    local backup="$dst.backup.$(date +%Y%m%d%H%M%S)"
+    mv "$dst" "$backup"
+    ok "Backed up existing config: $backup"
+  fi
+
+  if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+    ok "Already linked: $dst -> $src"
     return
   fi
 
@@ -143,5 +157,20 @@ else
   ok "git-delta configured"
 fi
 
+# ─── 7. macOS app startup ─────────────────────────────────────
+
+if [ -d "/Applications/AeroSpace.app" ]; then
+  info "Starting AeroSpace..."
+  open -a AeroSpace || true
+
+  if aerospace --version 2>/dev/null | grep -q "server version: Unknown"; then
+    skip "AeroSpace needs Accessibility permission: Privacy & Security -> Accessibility -> AeroSpace"
+    open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility" || true
+  else
+    ok "AeroSpace is running"
+  fi
+fi
+
 echo ""
 echo -e "${GREEN}Setup complete!${NC}"
+echo -e "${BLUE}[INFO]${NC} Restart your terminal or run: exec zsh"

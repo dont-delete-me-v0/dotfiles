@@ -3,11 +3,6 @@
 
 start-at-login = true
 
-# Highlight the focused window with JankyBorders.
-after-startup-command = [
-    'exec-and-forget borders active_color=0xff89b4fa inactive_color=0xff585b70 width=5.0'
-]
-
 # Normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
