@@ -23,13 +23,14 @@ alias la="eza -a --icons=auto --group-directories-first"
 alias lt="eza --tree --level=2 --icons=auto --group-directories-first"
 alias cat="bat"
 alias vim="nvim"
+alias emacs="emacs -nw"
 alias gt="$HOME/dotfiles/ghostty/ghostty-theme"
 
 # ─── Mystery Shack theme sync ─────────────────────────────────
-# Terminal already serves Mystery Shack in the 16 ANSI slots, so ANSI-drawing
-# tools (bat, delta, eza, syntax-highlighting) just follow it. Only tools that
-# paint their own hex (fzf below, plus tmux/starship/lazygit/nvim/superfile)
-# need the palette spelled out.
+# Terminal already serves Mystery Shack in the 16 ANSI slots, so ANSI-drawing tools
+# (bat, delta, eza, syntax-highlighting) just follow it. Only tools that paint
+# their own hex (fzf below, plus tmux/starship/lazygit/nvim/superfile) need the
+# palette spelled out.
 
 # fzf: bg:-1 keeps the terminal's background-opacity showing through
 export FZF_DEFAULT_OPTS="\
@@ -70,3 +71,17 @@ fi
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
+
+# bun completions
+[ -s "/Users/xiao8/.bun/_bun" ] && source "/Users/xiao8/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH=/Users/xiao8/.opencode/bin:$PATH

@@ -101,6 +101,41 @@ link_config() {
 # Neovim
 link_config "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
+# Emacs (Doom): user config lives in dotfiles, framework cloned separately.
+#   ~/.config/doom  -> dotfiles/emacs   (this repo, versioned)
+#   ~/.config/emacs -> doomemacs clone  (NOT versioned, heavy)
+if [ -d "$DOTFILES_DIR/emacs" ]; then
+  DOOM_DIR="$HOME/.config/emacs"
+
+  if [ -d "$DOOM_DIR/.git" ] || [ -L "$DOOM_DIR" ]; then
+    ok "Doom Emacs already present"
+  else
+    if [ -e "$DOOM_DIR" ] && [ ! -L "$DOOM_DIR" ]; then
+      backup="$DOOM_DIR.backup.$(date +%Y%m%d%H%M%S)"
+      mv "$DOOM_DIR" "$backup"
+      ok "Backed up existing emacs dir: $backup"
+    fi
+    info "Cloning Doom Emacs into ~/.config/emacs ..."
+    git clone --depth 1 https://github.com/doomemacs/doomemacs "$DOOM_DIR"
+    ok "Doom Emacs cloned"
+  fi
+
+  # symlink user config: ~/.config/doom -> dotfiles/emacs
+  link_config "$DOTFILES_DIR/emacs" "$HOME/.config/doom"
+
+  if [ -x "$DOOM_DIR/bin/doom" ]; then
+    if [ ! -d "$DOOM_DIR/.local/straight" ]; then
+      info "Running 'doom install' (first time, downloads packages) ..."
+      "$DOOM_DIR/bin/doom" -y install
+      ok "Doom install complete"
+    else
+      info "Running 'doom sync' ..."
+      "$DOOM_DIR/bin/doom" sync
+      ok "Doom sync complete"
+    fi
+  fi
+fi
+
 # Warp
 if [ -d "$DOTFILES_DIR/warp" ]; then
   link_config "$DOTFILES_DIR/warp/settings.toml" "$HOME/.warp/settings.toml"
@@ -169,7 +204,7 @@ git config --global delta.minus-style "syntax #3a2620"
 git config --global delta.plus-emph-style "syntax #354628"
 git config --global delta.minus-emph-style "syntax #55352c"
 git config --global delta.line-numbers-plus-style "#a7c789"
-git config --global delta.line-numbers-minus-style "#e4a4c9"
+git config --global delta.line-numbers-minus-style "#eea695"
 git config --global delta.line-numbers-zero-style "#9b8a7d"
 git config --global delta.file-style "#c69261 bold"
 git config --global delta.file-decoration-style "#2f2721 ul"

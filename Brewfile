@@ -21,6 +21,7 @@ brew "stylua"
 brew "tmux"
 
 # Casks
+cask "emacs"
 cask "ghostty"
 cask "warp"
 cask "nikitabobko/tap/aerospace"
