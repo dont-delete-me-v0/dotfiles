@@ -109,6 +109,9 @@ fi
 # Superfile
 if [ -d "$DOTFILES_DIR/superfile" ]; then
   link_config "$DOTFILES_DIR/superfile/config.toml" "$HOME/.config/superfile/config.toml"
+  if [ -d "$DOTFILES_DIR/superfile/theme" ]; then
+    link_config "$DOTFILES_DIR/superfile/theme" "$HOME/.config/superfile/theme"
+  fi
 fi
 
 # Zsh
@@ -156,6 +159,23 @@ else
   git config --global merge.conflictStyle "zdiff3"
   ok "git-delta configured"
 fi
+
+# Mystery Shack colors for delta. syntax-theme follows $BAT_THEME ("ansi"),
+# which makes delta render with the terminal's own 16 ANSI colors.
+info "Applying Mystery Shack colors to delta..."
+git config --global delta.syntax-theme "ansi"
+git config --global delta.plus-style "syntax #26301f"
+git config --global delta.minus-style "syntax #3a2620"
+git config --global delta.plus-emph-style "syntax #354628"
+git config --global delta.minus-emph-style "syntax #55352c"
+git config --global delta.line-numbers-plus-style "#a7c789"
+git config --global delta.line-numbers-minus-style "#e4a4c9"
+git config --global delta.line-numbers-zero-style "#9b8a7d"
+git config --global delta.file-style "#c69261 bold"
+git config --global delta.file-decoration-style "#2f2721 ul"
+git config --global delta.hunk-header-style "syntax"
+git config --global delta.hunk-header-decoration-style "#9b8a7d box"
+ok "delta colors applied"
 
 # ─── 7. macOS app startup ─────────────────────────────────────
 

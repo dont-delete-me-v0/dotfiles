@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Switch Ghostty theme in dotfiles config.
+# Usage: ghostty-theme            -> cycle through THEMES
+#        ghostty-theme <name>     -> set specific theme
+# After switching press cmd+shift+, in Ghostty to reload.
+
+set -euo pipefail
+
+CONFIG="${GHOSTTY_CONFIG:-$HOME/dotfiles/ghostty/config}"
+THEMES=("mystery-shack" "Melange Dark" "Everforest Dark Hard")
+
+current=$(sed -n 's/^theme = //p' "$CONFIG" | head -1)
+
+if [ $# -ge 1 ]; then
+  next="$*"
+else
+  next="${THEMES[0]}"
+  for i in "${!THEMES[@]}"; do
+    if [ "${THEMES[$i]}" = "$current" ]; then
+      next="${THEMES[$(( (i + 1) % ${#THEMES[@]} ))]}"
+      break
+    fi
+  done
+fi
+
+sed -i '' "s/^theme = .*/theme = ${next}/" "$CONFIG"
+echo "ghostty theme: ${current} -> ${next}"
+echo "reload: cmd+shift+,"
