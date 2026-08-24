@@ -1,9 +1,17 @@
-theme = GitHub Dark Default
+theme = mystery-shack
 font-family = IoskeleyMono-Term-NerdFont
 font-size = 18
+# Thin strokes lose perceived contrast against a textured backdrop even when the
+# WCAG ratio is fine — that is the spatial-frequency effect APCA models and the
+# plain ratio ignores. Thickening the glyph adds mass without touching color or
+# transparency.
+font-thicken = true
+font-thicken-strength = 140
+
 background-opacity = 0.92
 background-blur-radius = 20
 macos-titlebar-style = hidden
 window-decoration = auto
 macos-option-as-alt = true
 keybind = shift+enter=text:\x1b[13;2u
+minimum-contrast = 1.3

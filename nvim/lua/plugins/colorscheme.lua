@@ -1,12 +1,13 @@
--- local colorscheme = "github_dark_dimmed"
-local colorscheme = "astrodark"
+local colorscheme = "mystery-shack"
 
 ---@type LazySpec
 return {
   {
-    "projekt0n/github-nvim-theme",
+    "echasnovski/mini.base16",
     lazy = false,
     priority = 1000,
+    version = false,
+    init = function() vim.o.background = "dark" end,
   },
   {
     "AstroNvim/astroui",

@@ -1,0 +1,28 @@
+{
+  "neutral": {
+    "bg": "#1e1815",
+    "bg_alt": "#2f2721",
+    "sel": "#40352e",
+    "comment": "#9b8a7d",
+    "dim": "#c4b4a3",
+    "fg": "#e3d3bf"
+  },
+  "normal": {
+    "terra": "#d08a79",
+    "amber": "#c69261",
+    "gold": "#b69b5a",
+    "pine": "#8baa6e",
+    "turq": "#53b1a8",
+    "teal": "#53adc1",
+    "flower": "#c788ac"
+  },
+  "bright": {
+    "terra": "#eea695",
+    "amber": "#e4af7d",
+    "gold": "#d3b876",
+    "pine": "#a7c789",
+    "turq": "#71cec4",
+    "teal": "#71cade",
+    "flower": "#e4a4c9"
+  }
+}

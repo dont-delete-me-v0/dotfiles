@@ -1,57 +1,134 @@
 # Starship prompt config
 # https://starship.rs/config/
+#
+# Layout: the left side stays short and stable — path, branch, dirty state —
+# so the command always starts at the same column. Everything informational
+# (language versions, container context, exit code, duration) is parked at the
+# right edge, where it never pushes the cursor around.
+
+palette = "mystery_shack"
 
 format = """
 $directory\
 $git_branch\
+$git_state\
 $git_status\
-$python\
-$nodejs\
-$rust\
-$golang\
-$docker_context\
-$cmd_duration\
 $line_break\
 $character"""
 
-[character]
-success_symbol = "[❯](green)"
-error_symbol = "[❯](red)"
+right_format = """
+$golang\
+$nodejs\
+$python\
+$rust\
+$docker_context\
+$kubernetes\
+$status\
+$cmd_duration"""
+
+[palettes.mystery_shack]
+bg     = "#1e1815"
+sel    = "#2f2721"
+fg     = "#e3d3bf"
+muted  = "#9b8a7d"
+dim    = "#c4b4a3"
+amber  = "#c69261"
+gold   = "#e4af7d"
+green  = "#a7c789"
+red    = "#eea695"
+blue   = "#62b8b2"
+mag    = "#e4a4c9"
+cyan   = "#71cec4"
 
 [directory]
 truncation_length = 3
 truncate_to_repo = true
-style = "blue bold"
+# on screen every single line -> calm accent, not the loud one
+style = "cyan bold"
+format = "[$path]($style)[$read_only]($read_only_style) "
+read_only = " ro"
+read_only_style = "red"
 
 [git_branch]
 format = "[$branch]($style) "
-style = "purple"
+style = "mag"
 
+# rebase / merge / cherry-pick in progress — loud on purpose, it's a modal state
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "red bold"
+
+# Counts instead of bare sigils: "?1" reads, a lone "?" does not.
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
+style = "gold"
+conflicted = "conflict${count} "
+untracked = "?${count} "
+modified = "●${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "-${count} "
+stashed = "*${count} "
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+
+[character]
+success_symbol = "[❯](green bold)"
+error_symbol = "[❯](red bold)"
+
+# ─── right side ───────────────────────────────────────────────────────────
+# Labelled, not bare version strings, and truncated to major.minor — the patch
+# number is noise you never act on. Each gets its own hue so the eye separates
+# them without punctuation between.
+
+[golang]
+format = '[go$version]($style) '
+version_format = "${major}.${minor}"
+style = "cyan"
+symbol = ""
+
+[nodejs]
+format = '[node$version]($style) '
+version_format = "${major}.${minor}"
+style = "green"
+symbol = ""
+
+[python]
+format = '[py$version( $virtualenv)]($style) '
+version_format = "${major}.${minor}"
+style = "gold"
+symbol = ""
+
+[rust]
+format = '[rs$version]($style) '
+version_format = "${major}.${minor}"
 style = "red"
+symbol = ""
+
+[docker_context]
+format = '[docker $context]($style) '
+style = "blue"
+only_with_files = true
+
+# Scoped to folders that actually deploy something, so it stays quiet elsewhere.
+[kubernetes]
+disabled = false
+format = '[k8s $context( $namespace)]($style) '
+style = "mag"
+detect_files = ["Chart.yaml", "skaffold.yaml", "kustomization.yaml"]
+detect_folders = ["k8s", "kubernetes", "helm"]
+
+[status]
+disabled = false
+format = '[$symbol$status]($style) '
+symbol = "✘"
+style = "red bold"
+map_symbol = false
+pipestatus = true
 
 [cmd_duration]
 min_time = 2_000
-format = "[$duration]($style) "
-style = "yellow"
-
-[python]
-format = '[${symbol}${version}]($style) '
-symbol = " "
-
-[nodejs]
-format = '[${symbol}${version}]($style) '
-symbol = " "
-
-[rust]
-format = '[${symbol}${version}]($style) '
-symbol = " "
-
-[golang]
-format = '[${symbol}${version}]($style) '
-symbol = " "
-
-[docker_context]
-format = '[${symbol}${context}]($style) '
-symbol = " "
+format = "[$duration]($style)"
+style = "muted"

@@ -1,8 +1,8 @@
 # Superfile Configuration
 
 [theme]
-# Available themes: default, dracula, nord, gruvbox, solarized, tokyonight
-name = "dracula"
+# Available themes: default, dracula, nord, gruvbox, solarized, tokyonight, mystery-shack (custom)
+name = "mystery-shack"
 
 [editor]
 # Default editor
